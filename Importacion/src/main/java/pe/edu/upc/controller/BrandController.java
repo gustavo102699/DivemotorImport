@@ -30,27 +30,23 @@ public class BrandController {
 	@Autowired
 	private IBrandService bService;
 
-	@RequestMapping("/welcome")
-	public String irWelcome() {
-		return "welcome";
-	}
 
 	@GetMapping("/new")
 	public String newLBrand(Model model) {
 		model.addAttribute("brand", new Brand());
-		return "brand";
+		return "brand/brand";
 	}
 
 	@PostMapping("/save")
 	public String saveMarca(@Valid Brand brand, BindingResult result, Model model, SessionStatus status)
 			throws Exception {
 		if (result.hasErrors()) {
-			return "brand";
+			return "brand/brand";
 		} else {
 			int rpta = bService.insert(brand);
 			if (rpta > 0) {
 				model.addAttribute("mensaje", "Ya existe");
-				return "brand";
+				return "brand/brand";
 			} else {
 				model.addAttribute("mensajeff", "Se guardó correctamente");
 				status.setComplete();
@@ -69,7 +65,7 @@ public class BrandController {
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 		}
-		return "listBrand";
+		return "brand/listBrand";
 	}
 
 	@RequestMapping("/update/{id}")
@@ -78,12 +74,12 @@ public class BrandController {
 
 		if (brand == null) {
 			objRedir.addFlashAttribute("mensaje", "Ocurrio un error");
-			return "listBrand";
+			return "brand/listBrand";
 		} else {
 			model.addAttribute("listBrand", bService.list());
 
 			model.addAttribute("brand", brand);
-			return "brand";
+			return "brand/brand";
 		}
 	}
 
@@ -99,7 +95,7 @@ public class BrandController {
 		}
 
 		model.put("listaBrands", listaMarcas);
-		return "findBrand";
+		return "brand/findBrand";
 
 	}
 
@@ -107,7 +103,7 @@ public class BrandController {
 	public String irBuscar(Model model) {
 
 		model.addAttribute("brand", new Brand());
-		return "findBrand";
+		return "brand/findBrand";
 	}
 
 	@RequestMapping("/delete")
@@ -124,6 +120,6 @@ public class BrandController {
 		}
 		model.put("listbrands", bService.list());
 
-		return "listBrand";
+		return "brand/listBrand";
 	}
 }
