@@ -22,7 +22,7 @@ public class Product {
 
 	
 	@Pattern(regexp = "[A-Za-z]+", message = "El nombre del Producto no puede contener un número")
-	@Column(name = "ProductName", columnDefinition = "Decimal(8,2)", nullable = false)
+	@Column(name = "ProductName", nullable = false)
 	private String productName;
 	
 	@DecimalMin("1.00")
@@ -31,7 +31,7 @@ public class Product {
 	private Double price;
 
 	@Positive
-	private int unit;
+	private String unit;
 
 	@ManyToOne
 	@JoinColumn(name = "idBrand", nullable = false)
@@ -69,11 +69,13 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getUnit() {
+
+
+	public String getUnit() {
 		return unit;
 	}
 
-	public void setUnit(int unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 

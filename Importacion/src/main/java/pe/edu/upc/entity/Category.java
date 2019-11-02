@@ -16,7 +16,7 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCategory;
 
-	@Pattern(regexp = "[A-Za-z]+", message = "El nombre de la Category no puede contener un número")
+	@Pattern(regexp = "[A-Za-z]+", message = "El nombre de la Categoria no puede contener un número")
 	@Column(name = "CategoryName", nullable = false, length = 20)
 	private String categoryName;
 
