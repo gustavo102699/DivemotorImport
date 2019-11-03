@@ -20,17 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.spring.entity.Brand;
-import pe.edu.upc.spring.service.IBrandService;
+import pe.edu.upc.spring.entity.Supplier;
+import pe.edu.upc.spring.service.ISupplierService;
 
 
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
-
+@RequestMapping("/supplier")
+public class SupplierController {
 	@Autowired
-	private IBrandService bService;
+	private ISupplierService sService;
 
 	@RequestMapping("/welcome")
 	public String irWelcome() {
@@ -38,85 +37,85 @@ public class BrandController {
 	}
 
 	@GetMapping("/new")
-	public String newLBrand(Model model) {
-		model.addAttribute("brand", new Brand());
-		return "brand/brand";
+	public String newSupplier(Model model) {
+		model.addAttribute("supplier", new Supplier());
+		return "supplier/supplier"; // 1vista
 	}
 
 	@PostMapping("/save")
-	public String saveMarca(@Valid Brand brand, BindingResult result, Model model, SessionStatus status)
+	public String saveSupplier(@Valid Supplier supplier, BindingResult result, Model model, SessionStatus status)
 			throws Exception {
 		if (result.hasErrors()) {
-			return "brand/brand";
+			return "supplier/supplier";
 		} else {
-			int rpta = bService.insert(brand);
+			int rpta = sService.insert(supplier);
 			if (rpta > 0) {
 				model.addAttribute("mensaje", "Ya existe");
-				return "brand";
+				return "supplier/supplier";
 			} else {
 				model.addAttribute("mensajeff", "Se guardó correctamente");
 				status.setComplete();
 			}
 		}
-		model.addAttribute("brand", new Brand());
-		return "redirect:/brand/list";
+		model.addAttribute("supplier", new Supplier());
+		return "redirect:/supplier/list"; // retorna controller
 	}
 
 	@GetMapping("/list")
-	public String listMarcas(Model model) {
+	public String listProveedor(Model model) {
 		try {
-			model.addAttribute("brand", new Brand());
-			model.addAttribute("listBrand", bService.list());
+			model.addAttribute("supplier", new Supplier());
+			model.addAttribute("listSupplier", sService.list());
 
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 		}
-		return "brand/listBrand";
+		return "supplier/listSupplier"; // 2vista
 	}
 
 	@RequestMapping("/update/{id}")
-	public String updateMarca(@PathVariable int id, Model model, RedirectAttributes objRedir) {
-		Optional<Brand> brand = bService.listId(id);
+	public String updateSupplier(@PathVariable int id, Model model, RedirectAttributes objRedir) {
+		Optional<Supplier> supplier = sService.listId(id);
 
-		if (brand == null) {
+		if (supplier == null) {
 			objRedir.addFlashAttribute("mensaje", "Ocurrio un error");
-			return "brand/listBrand";
+			return "supplier/listSupplier";
 		} else {
-			model.addAttribute("listBrand", bService.list());
+			model.addAttribute("listSupplier", sService.list());
 
-			model.addAttribute("brand", brand);
-			return "brand/brand";
+			model.addAttribute("supplier", supplier);
+			return "supplier/supplier";
 		}
 	}
 
 	@RequestMapping("/buscar")
-	public String buscar(Map<String, Object> model, @ModelAttribute Brand brand) throws ParseException {
+	public String buscar(Map<String, Object> model, @ModelAttribute Supplier supplier) throws ParseException {
 
-		List<Brand> listaMarcas;
-		listaMarcas = bService.findName(brand.getBrandName());
+		List<Supplier> listaProveedores;
+		listaProveedores = sService.findName(supplier.getSupplierName());
 
-		if (listaMarcas.isEmpty()) {
+		if (listaProveedores.isEmpty()) {
 
 			model.put("mensaje", "No se encontró");
 		}
 
-		model.put("listaBrands", listaMarcas);
-		return "brand/findBrand";
+		model.put("listaProveedores", listaProveedores);
+		return "supplier/findSupplier"; // 3vista
 
 	}
 
 	@RequestMapping("/irBuscar")
 	public String irBuscar(Model model) {
 
-		model.addAttribute("brand", new Brand());
-		return "brand/findBrand";
+		model.addAttribute("supplier", new Supplier());
+		return "supplier/findSupplier";
 	}
 
 	@RequestMapping("/delete")
 	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
 		try {
 			if (id != null && id > 0) {
-				bService.delete(id);
+				sService.delete(id);
 				model.put("mensaje", "Se eliminó correctamente");
 
 			}
@@ -124,8 +123,9 @@ public class BrandController {
 			System.out.println(e.getMessage());
 			model.put("mensaje", "No se puede eliminar una libreria");
 		}
-		model.put("listbrands", bService.list());
+		model.put("listsuppliers", sService.list());
 
-		return "brand/listBrand";
+		return "supplier/listSupplier";
 	}
+
 }
