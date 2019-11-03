@@ -1,4 +1,4 @@
-package pe.edu.upc.repository;
+package pe.edu.upc.spring.repository;
 
 import java.util.List;
 
@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import pe.edu.upc.entity.Supplier;
+import pe.edu.upc.spring.entity.Supplier;
+
+
 
 
 public interface ISupplierRepository extends JpaRepository<Supplier, Long>{
