@@ -1,9 +1,11 @@
-package pe.edu.upc.service;
+package pe.edu.upc.spring.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import pe.edu.upc.entity.Brand;
+import pe.edu.upc.spring.entity.Brand;
+
+
 
 public interface IBrandService {
 
