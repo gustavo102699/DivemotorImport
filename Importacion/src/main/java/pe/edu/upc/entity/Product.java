@@ -20,6 +20,8 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
 
+	@Column(name = "foto", nullable = true)
+	private String foto;
 	
 	@Pattern(regexp = "[A-Za-z]+", message = "El nombre del Producto no puede contener un número")
 	@Column(name = "ProductName", nullable = false)
@@ -30,7 +32,7 @@ public class Product {
 	@Column(name = "Price", columnDefinition = "Decimal(8,2)", nullable = false)
 	private Double price;
 
-	@Positive
+	@Column(name = "unit", nullable = false)
 	private String unit;
 
 	@ManyToOne
@@ -101,6 +103,14 @@ public class Product {
 
 	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 }

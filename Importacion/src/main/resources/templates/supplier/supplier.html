@@ -22,31 +22,34 @@
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 
-		<div class="content container">
-
-			<div class="d-flex">
-				<h3 class="title-content">Lista Categorias</h3>
-				<a th:href="@{/category/new}" class="btnnew btn btn-primary">Nuevo</a>
+		<div class="content container row">
+			<div class="col-6">
+				<h3>Registrar Proveedor</h3>
 			</div>
-			<table class="table">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col" class="text-center">ID</th>
-						<th scope="col" class="text-center">Nombre</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="cat : ${listCategories}">
-						<td class="text-center" th:text="${cat.idCategory}"></td>
-						<td class="text-center" th:text="${cat.categoryName}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div th:if="${mensaje}" class="alert alert-danger">
-			<p th:text="${mensaje}"></p>
-		</div>
+			<div class="col-6 frm-registro">
+				<form th:action="@{/supplier/save}" method="post"
+					th:object="${supplier}">
+					<div class="form-group">
+						<label for="idBrand">ID:</label> <input type="text"
+							class="form-control" th:field="*{idSupplier}"></input>
 
+						<div class="form-group">
+							<label for="nombre">NOMBRE:</label> <input type="text" required
+								th:field="*{supplierName}" class="form-control" id="nombre"></input>
+							<div class="alert alert-danger"
+								th:if="${#fields.hasErrors('supplierName')}"
+								th:errors="*{supplierName}"></div>
+
+						</div>
+
+					</div>
+					<button type="submit" class="btnadd btn btn-primary">Aceptar</button>
+					<a href="/supplier/list" class="btn btn-danger">Cancelar</a>
+
+				</form>
+
+			</div>
+		</div>
 	</div>
 
 
@@ -55,5 +58,13 @@
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/dive.js"></script>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+

@@ -25,20 +25,43 @@
 		<div class="content container">
 
 			<div class="d-flex">
-				<h3 class="title-content">Lista Categorias</h3>
-				<a th:href="@{/category/new}" class="btnnew btn btn-primary">Nuevo</a>
+				<h3 class="title-content">Lista de Productos</h3>
+				<a th:href="@{/products/new}" class="btnnew btn btn-primary">Nuevo</a>
+				<a th:href="@{/products/irBuscar}" class="btnnew btn btn-primary">Buscar</a>
 			</div>
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
 						<th scope="col" class="text-center">ID</th>
 						<th scope="col" class="text-center">Nombre</th>
+						<th scope="col" class="text-center">CATEGORIA</th>
+						<th scope="col" class="text-center">PROVEEDOR</th>
+						<th scope="col" class="text-center">MARCA</th>
+						<th scope="col" class="text-center">PRECIO</th>
+						<th scope="col" class="text-center">UNIDAD</th>
+						<th scope="col" class="text-center">OPERACIÓN</th>
+						<th scope="col" class="text-center">OPERACIÓN</th>
+						<th scope="col" class="text-center">DETALLE</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cat : ${listCategories}">
-						<td class="text-center" th:text="${cat.idCategory}"></td>
-						<td class="text-center" th:text="${cat.categoryName}"></td>
+					<tr th:each="p: ${listaProductos}">
+						<td><a class="btn btn-primary btn-xs"
+							th:href="@{/products/ver/} + ${p.idProducto}"
+							th:text="${p.idProducto}"></a></td>
+						<td th:text="${p.productName}"></td>
+						<td th:text="${p.price}"></td>
+						<td th:text="${p.unit}"></td>
+						<td th:text="${p.brand.brandName}"></td>
+						<td th:text="${p.category.categoryName}"></td>
+						<td th:text="${p.supplier.supplierName}"></td>
+						<td><a th:href="@{/products/eliminar?id=}+${p.idProducto}">Eliminar</a></td>
+						<td><a th:href="@{'/products/modificar/' + ${p.idProducto}}">Modificar</a></td>
+						<td align="center"><a
+							th:href="@{/products/ver/} + ${p.idProducto}">
+							
+							<i class="fa fa-dropbox" style="color: #40D6F2;"></i>
+							</a></td>
 					</tr>
 				</tbody>
 			</table>

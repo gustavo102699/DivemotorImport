@@ -12,10 +12,10 @@ import pe.edu.upc.entity.Product;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
 	@Query("select count(l.productName) from Product l where l.productName=:productName")
-	public int buscarProducto(@Param("productName") String nombre);
+	public int buscarNombre(@Param("productName") String nombre);
 
 	@Query("from Product p where p.productName like %:productName%")
-	List<Product> buscarNombre(@Param("productName") String nombreProducto);
+	public List<Product> buscarProducto(@Param("productName") String nombreProducto);
 
 	@Query("select p from Product p where p.category.categoryName like %?1%")
 	public List<Product> findProductByNameCategory(String nombreCategoria);

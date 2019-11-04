@@ -21,8 +21,42 @@
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 		
-		<div class="content">
-			<h1>hola</h1>
+		<div class="content container">
+			<form th:action="@{/category/buscar}" method="post"
+			th:object="${category}">
+
+
+			<div class="form-group">
+				<label for="nameCategory">Buscar:</label> <input type="text"
+					class="form-control" th:field="*{categoryName}" id="nameCategory"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Aceptar</button>
+			<a href="/category/list" class="btn btn-danger">Cancelar</a>
+
+		</form>
+
+		<table class="table table-bordered table-hover table-striped"
+			id="tab_logic">
+			<thead>
+				<tr>
+					<th class="text-center">CODIGO</th>
+					<th class="text-center">CATEGORIA</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ca: ${listaCategories}">
+					<td th:text="${ca.idCategory}"></td>
+					<td th:text="${ca.categoryName}"></td>
+
+				</tr>
+			</tbody>
+		</table>
+
+
+		<div th:if="${mensaje}" class="alert alert-info">
+			<p th:text="${mensaje}"></p>
+		</div>
 			
 		</div>
 	</div>

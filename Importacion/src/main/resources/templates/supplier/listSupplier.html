@@ -25,8 +25,8 @@
 		<div class="content container">
 
 			<div class="d-flex">
-				<h3 class="title-content">Lista Categorias</h3>
-				<a th:href="@{/category/new}" class="btnnew btn btn-primary">Nuevo</a>
+				<h3 class="title-content">Lista de Proveedores</h3>
+				<a th:href="@{/supplier/new}" class="btnnew btn btn-primary">Nuevo</a>
 			</div>
 			<table class="table">
 				<thead class="thead-light">
@@ -36,9 +36,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cat : ${listCategories}">
-						<td class="text-center" th:text="${cat.idCategory}"></td>
-						<td class="text-center" th:text="${cat.categoryName}"></td>
+					<tr th:each="cat : ${listSupplier}">
+						<td class="text-center" th:text="${cat.idSupplier}"></td>
+						<td class="text-center" th:text="${cat.supplierName}"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -46,7 +46,6 @@
 		<div th:if="${mensaje}" class="alert alert-danger">
 			<p th:text="${mensaje}"></p>
 		</div>
-
 	</div>
 
 
@@ -57,3 +56,10 @@
 </body>
 
 </html>
+
+
+
+
+
+
+

@@ -24,38 +24,71 @@
 
 		<div class="content container row">
 			<div class="col-6">
-				<h3>Registrar Categoria</h3>
+				<h3>Registrar Productos</h3>
 			</div>
-
 			<div class="col-6 frm-registro">
-				<form th:action="@{/brand/save}" method="post" th:object="${brand}">
+				<form th:action="@{/products/save}" method="post"
+					th:object="${product}" enctype="multipart/form-data">
+
 					<div class="form-group">
-						<label for="idBrand">ID:</label> <input type="text"
-							readonly class="form-control" th:field="*{idBrand}"></input>
+						<label for="idrace">ID:</label> <input type="text" readonly
+							class="form-control" th:field="*{idProducto}"></input>
 
 						<div class="form-group">
-							<label for="nombre">NOMBRE:</label> <input type="text" required
-								th:field="*{brandName}" class="form-control" id="nombre"></input>
+							<label for="nombre">NOMBRE:</label> <input type="text"
+								th:field="*{productName}" class="form-control" id="nombre"></input>
 							<div class="alert alert-danger"
-								th:if="${#fields.hasErrors('brandName')}"
-								th:errors="*{brandName}"></div>
+								th:if="${#fields.hasErrors('productName')}"
+								th:errors="*{productName}"></div>
 
-						</div>
-						<div class="form-group">
-							<label for="empresa">EMPRESA:</label> <input type="text" required
-								th:field="*{enterprise}" class="form-control" id="empresa"></input>
+							<label for="price">PRECIO:</label> <input type="text"
+								th:field="*{price}" class="form-control" id="price"></input>
 							<div class="alert alert-danger"
-								th:if="${#fields.hasErrors('enterprise')}"
-								th:errors="*{enterprise}"></div>
+								th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
 
 
+							<label for="unit">UNIDAD:</label> <input type="text"
+								th:field="*{unit}" class="form-control" id="unit"></input>
+							<div class="alert alert-danger"
+								th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></div>
+
+
+
+							<label for="category" class=" col-sm-2 col-form-label">CATEGORIA:</label>
+							<select class="form-control" th:field="*{category.idCategory}">
+								<option th:each="c: ${listaCategorias}"
+									th:value="${c.idCategory}" th:text="${c.categoryName}"
+									th:selected="(${c.idCategory} == *{category.idCategory})"></option>
+							</select> <label for="brand" class=" col-sm-2 col-form-label">MARCA:</label>
+							<select class="form-control" th:field="*{brand.idBrand}">
+								<option th:each="b: ${listaMarcas}" th:value="${b.idBrand}"
+									th:text="${b.brandName}"
+									th:selected="(${b.idBrand} == *{brand.idBrand})"></option>
+							</select> <label for="supplier" class=" col-sm-2 col-form-label">PROVEEDOR:</label>
+							<select class="form-control" th:field="*{supplier.idSupplier}">
+								<option th:each="s: ${listaProveedores}"
+									th:value="${s.idSupplier}" th:text="${s.supplierName}"
+									th:selected="(${s.idSupplier} == *{supplier.idSupplier})"></option>
+							</select>
+
+
+
+							<div class="form-group row">
+								<label for="file" class="col-sm-2 col-form-label ">FOTO:</label>
+								<div class="col-sm-6">
+									<input type="file" name="file" class="form-control"
+										th:text="${product.foto}" />
+								</div>
+
+							</div>
 						</div>
+
 					</div>
+
 					<button type="submit" class="btnadd btn btn-primary">Aceptar</button>
-					<a href="/brand/list" class="btn btn-danger">Cancelar</a>
+					<a href="/products/list" class="btn btn-danger">Cancelar</a>
 
 				</form>
-
 				<div th:if="${mensaje}" class="alert alert-danger">
 					<p th:text="${mensaje}"></p>
 				</div>
@@ -70,13 +103,5 @@
 	<script src="/js/bootstrap.min.js"></script>
 	<script src="/js/dive.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-

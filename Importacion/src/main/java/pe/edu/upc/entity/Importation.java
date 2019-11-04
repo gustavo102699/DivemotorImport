@@ -31,11 +31,11 @@ public class Importation {
 	private Long idImportation;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser")
+	@JoinColumn(name = "idUser", nullable=false)
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTransport")
+	@JoinColumn(name = "idTransport",nullable=false)
 	private Transport transport;
 	
 	@NotNull(message = "La fecha es obligatoria")
@@ -60,4 +60,61 @@ public class Importation {
 	@JoinColumn(name = "idImportation")
 	private List<ImportDetails> import_details;
 
+	public Long getIdImportation() {
+		return idImportation;
+	}
+
+	public void setIdImportation(Long idImportation) {
+		this.idImportation = idImportation;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Transport getTransport() {
+		return transport;
+	}
+
+	public void setTransport(Transport transport) {
+		this.transport = transport;
+	}
+
+	public Date getRequestDate() {
+		return requestDate;
+	}
+
+	public void setRequestDate(Date requestDate) {
+		this.requestDate = requestDate;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public Date getShippedDate() {
+		return shippedDate;
+	}
+
+	public void setShippedDate(Date shippedDate) {
+		this.shippedDate = shippedDate;
+	}
+
+	public List<ImportDetails> getImport_details() {
+		return import_details;
+	}
+
+	public void setImport_details(List<ImportDetails> import_details) {
+		this.import_details = import_details;
+	}
+
+	
 }

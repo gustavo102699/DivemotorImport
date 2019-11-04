@@ -24,53 +24,33 @@
 
 		<div class="content container">
 
-			<form id="myform">
-				<div class="row clearfix">
-					<div class="col-md-12 column">
-						<a style="border-bottom-color: green" th:href="@{/brand/new}"
-							id="add-row" type="button"
-							class="btn btn-primary btn-md left-block"> <span
-							class="glyphicon glyphicon-plus"></span> Marca
-						</a> <a style="border-bottom-color: green"
-							th:href="@{/brand/irBuscar}" id="add-row" type="button"
-							class="btn btn-primary btn-md left-block"> <span
-							class="glyphicon glyphicon-search"></span>
-						</a>
-						<table class="table table-bordered table-hover table-striped"
-							id="tab_logic">
-							<thead>
-								<tr>
-									<th class="text-center">CODIGO</th>
-									<th class="text-center">MARCA</th>
-									<th class="text-center">EMPRESA</th>
-									<th class="text-center">OPERACIÓN</th>
-									<th class="text-center">OPERACIÓN</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="bra: ${listBrand}">
-									<td th:text="${bra.idBrand}"></td>
-									<td th:text="${bra.enterprise}"></td>
-									<td th:text="${bra.brandName}"></td>
-									<td style="text-align: center;"><a
-										th:href="@{/brand/delete?id=}+${bra.idBrand}"><i
-											style="font-size: 24px; color:red;" class="fa fa-trash"></i></a></td>
-									<td style="text-align: center;"><a
-										th:href="@{'/brand/update/' + ${bra.idBrand}}"><i
-											style="font-size: 24px;" class="fa fa-edit"></i></a></td>
-								</tr>
-							</tbody>
-
-						</table>
-
-					</div>
-				</div>
-				<div th:if="${mensaje}" class="alert alert-danger">
-					<p th:text="${mensaje}"></p>
-				</div>
-			</form>
-
+			<div class="d-flex">
+				<h3 class="title-content">Lista Marcas</h3>
+				<a th:href="@{/brand/new}" class="btnnew btn btn-primary">Nuevo</a>
+			</div>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col" class="text-center">ID</th>
+						<th scope="col" class="text-center">Nombre</th>
+						<th scope="col" class="text-center">Empresa</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="bra : ${listBrand}">
+						<td class="text-center" th:text="${bra.idBrand}"></td>
+						<td class="text-center" th:text="${bra.brandName}"></td>
+						<td class="text-center" th:text="${bra.enterprise}"></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
+		
+		<div th:if="${mensaje}" class="alert alert-danger">
+			<p th:text="${mensaje}"></p>
+		</div>
+
+
 	</div>
 
 

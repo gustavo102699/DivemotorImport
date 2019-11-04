@@ -22,7 +22,7 @@
 		<div id="cpanelbody" class="row">
 
 			<div class="panelitem">
-				<a th:href="@{/hola/ex}"> <i class="fa fa-home"
+				<a th:href="@{/hola/home}"> <i class="fa fa-home"
 					style="color: #7764E4;"></i>
 				</a>
 				<p>Inicio</p>
@@ -35,7 +35,7 @@
 				<p>Importaciones</p>
 			</div>
 			<div class="panelitem">
-				<a> <i class="fa fa-dropbox" style="color: #40D6F2;"></i>
+				<a  th:href="@{/products/list}"> <i class="fa fa-dropbox" style="color: #40D6F2;"></i>
 				</a>
 				<p>Productos</p>
 			</div>
@@ -65,7 +65,9 @@
 				<p>Cargos</p>
 			</div>
 			<div class="panelitem">
+				<a  th:href="@{/supplier/list}">
 				<i class="fa fa-codepen" style="color: #F2962C;"></i>
+				</a>
 				<p>Proveedores</p>
 			</div>
 			<div class="panelitem">
