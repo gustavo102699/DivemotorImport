@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,53 +13,57 @@
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/dive.css">
 </head>
+
 <body>
 
-	<div th:fragment="nav" class="row topbar col-lg-12">
-		<h2 class="col-lg-9">DIVEMOTOR</h2>
+	<div th:replace="fragments/sidebar :: sidebar" id="panel"
+		class="activepanel"></div>
 
-		<div class="p-0 d-flex flex-row col-lg-3 info-der row">
-			<div class="col-2 d-flex">
-				<i id="icon-user" class="fa fa-user-circle"></i>
+	<div class="bg row">
+		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
+
+		<div class="content container">
+
+			<div class="d-flex">
+				<h3 class="title-content">Lista Categorias</h3>
+				<a th:href="@{/importation/new}" class="btnnew btn btn-primary">Nuevo</a>
 			</div>
-			<div class="user-info col-8">
-				<h4 id="username">Juan Lopez Honores</h4>
-				<p id="estado">Online</p>
-			</div>
-			<div class="col-2">
-				<a class="dropdown-item" href="#" data-toggle="modal"
-					data-target="#logoutModal">  <i id="icon-salir" class="fa fa-power-off"></i>
-				</a>
-			</div>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col" class="text-center">ID</th>
+						<th scope="col" class="text-center">Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="imp : ${listaImportations}">
+						<td class="text-center" th:text="${imp.idImportation}"></td>
+						<td class="text-center" th:text="${imp.requestDate}"></td>
+						<td class="text-center" th:text="${imp.deliveryDate}"></td>
+						<td class="text-center" th:text="${imp.shippedDate}"></td>
+						<td><a
+							th:href="@{'/importation/modificar/' + ${imp.idImportation}}">Modificar</a></td>
+						<td><a
+							th:href="@{/importation/eliminar?id=}+${imp.idImportation}">Eliminar</a></td>
+						<td><a th:href="@{'/importation/detail/' + ${imp.idImportation}}"
+							class="btn btn-danger">Detalle</a></td>
+						<td><a th:href="@{'/importation/files/' + ${imp.idImportation}}"
+							class="btn btn-danger">Archivos Legales </a></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
+		<div th:if="${mensaje}" class="alert alert-danger">
+			<p th:text="${mensaje}"></p>
+		</div>
+
 	</div>
 
 
-
-	<!-- MODAL -->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">¿Listo para
-						salir?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Seleccione "Cerrar sesión" a
-					continuación si está listo para finalizar su sesión actual</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancelar</button>
-					<a class="btn btn-primary" th:href="@{/categories/index}">Cerrar
-						Sesión</a>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/dive.js"></script>
 </body>
+
 </html>

@@ -3,6 +3,7 @@ package pe.edu.upc.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -76,6 +77,23 @@ public class Importation {
 		this.import_details= new ArrayList<ImportDetails>();
 		this.legal_files= new ArrayList<LegalFiles>();
 	}
+	
+	
+	public Double getTotal() {
+		return import_details.stream().collect(Collectors.summingDouble(ImportDetails::calcularSubTotal));
+	}
+	
+	
+	public void addDetailImportation(ImportDetails item)
+	{
+		this.import_details.add(item);
+	}
+	
+	public void addLegalFile(LegalFiles item)
+	{
+		this.legal_files.add(item);
+	}
+	
 	
 	
 	public Long getIdImportation() {

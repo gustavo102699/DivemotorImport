@@ -29,38 +29,42 @@ public class ImportationServiceImpl implements IImportationService {
 
 	@Override
 	public boolean modificar(Importation importation) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+		try {
+			iR.save(importation);
+			flag = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return flag;
 	}
 
 	@Override
 	public void eliminar(long idImport) {
-		// TODO Auto-generated method stub
+		iR.deleteById(idImport);
 
 	}
 
 	@Override
 	public Importation listarId(long idImport) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Importation> op = iR.findById(idImport);
+		return op.isPresent() ? op.get() : new Importation();
 	}
 
 	@Override
 	public List<Importation> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return iR.findAll();
 	}
 
 	@Override
 	public Optional<Importation> fetchByImportIdWhithImportDetailsWithProduct(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return iR.fetchByImportIdWhithImportDetailsWithProduct(id);
 	}
 
 	@Override
 	public Optional<Importation> fetchByImportIdWhithLegalFilesWithFileTemplate(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return iR.fetchByImportIdWhithLegalFilesWithFileTemplate(id);
 	}
 
 }

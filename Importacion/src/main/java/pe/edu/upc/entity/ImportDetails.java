@@ -19,6 +19,11 @@ public class ImportDetails {
 	
 	private int quantity;
 
+	public Double calcularSubTotal()
+	{
+		return quantity*product.getPrice();
+	}
+	
 	public Long getIdImportDetails() {
 		return idImportDetails;
 	}
