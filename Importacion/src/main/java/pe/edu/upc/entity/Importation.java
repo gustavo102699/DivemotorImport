@@ -1,5 +1,6 @@
 package pe.edu.upc.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,44 +24,60 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="Importation")
+@Table(name = "Importation")
 public class Importation {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idImportation;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idUser", nullable=false)
+	@JoinColumn(name = "idUser", nullable = true)
 	private User user;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idTransport",nullable=false)
+	@JoinColumn(name = "idTransport", nullable = false)
 	private Transport transport;
-	
+
 	@NotNull(message = "La fecha es obligatoria")
 	@Column(name = "requestDate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date requestDate;//cuando se pidio
-	
+	private Date requestDate;// cuando se pidio
+
 	@NotNull(message = "La fecha es obligatoria")
 	@Future(message = "La fecha debe estar en el futuro")
 	@Column(name = "deliveryDate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date deliveryDate;//cuando se quiere que se entrege
-	
-	@Column(name = "shippedDate")
+	private Date deliveryDate;// cuando se quiere que se entrege
+
+	@Column(name = "shippedDate", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date shippedDate;//dia de entrega
+	private Date shippedDate;// dia de entrega
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idImportation",nullable=true)
+	private List<ImportDetails> import_details;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idImportation")
-	private List<ImportDetails> import_details;
+	@JoinColumn(name = "idImportation",nullable=true)
+	private List<LegalFiles> legal_files;
 
+	@PrePersist
+	public void prePersist()
+	{
+		this.requestDate= new Date();
+	}
+	
+	public Importation()
+	{
+		this.import_details= new ArrayList<ImportDetails>();
+		this.legal_files= new ArrayList<LegalFiles>();
+	}
+	
+	
 	public Long getIdImportation() {
 		return idImportation;
 	}
@@ -116,5 +134,4 @@ public class Importation {
 		this.import_details = import_details;
 	}
 
-	
 }

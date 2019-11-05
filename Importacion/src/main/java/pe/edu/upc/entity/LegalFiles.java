@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,7 @@ public class LegalFiles {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idTemplate")
-	private FileTemplate idTemplate;
+	private FileTemplate template;
 	
 	@NotEmpty(message = "Redacte el archivo")
 	@Column(name = "first_name", nullable = false, length = 700)
@@ -38,6 +39,12 @@ public class LegalFiles {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
+	@PrePersist
+	public void prePersist()
+	{
+		this.createDate= new Date();
+	}
+	
 	public Long getIdLegalFiles() {
 		return idLegalFiles;
 	}
@@ -46,13 +53,7 @@ public class LegalFiles {
 		this.idLegalFiles = idLegalFiles;
 	}
 
-	public FileTemplate getIdTemplate() {
-		return idTemplate;
-	}
-
-	public void setIdTemplate(FileTemplate idTemplate) {
-		this.idTemplate = idTemplate;
-	}
+	
 
 	public String getBodyFile() {
 		return bodyFile;
@@ -70,14 +71,14 @@ public class LegalFiles {
 		this.createDate = createDate;
 	}
 
-	public LegalFiles(Long idLegalFiles, FileTemplate idTemplate,
-			@NotEmpty(message = "Redacte el archivo") String bodyFile, Date createDate) {
-		super();
-		this.idLegalFiles = idLegalFiles;
-		this.idTemplate = idTemplate;
-		this.bodyFile = bodyFile;
-		this.createDate = createDate;
+	public FileTemplate getTemplate() {
+		return template;
 	}
+
+	public void setTemplate(FileTemplate template) {
+		this.template = template;
+	}
+
 	
 	
 }

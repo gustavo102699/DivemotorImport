@@ -21,7 +21,6 @@ public class Transport {
 	@Column(name = "importAgency", nullable = false, length = 30)
 	private String importAgency;
 	
-	private Boolean disponibility;
 
 	public Long getIdTransport() {
 		return idTransport;
@@ -47,13 +46,7 @@ public class Transport {
 		this.importAgency = importAgency;
 	}
 
-	public Boolean getDisponibility() {
-		return disponibility;
-	}
 
-	public void setDisponibility(Boolean disponibility) {
-		this.disponibility = disponibility;
-	}
 	
 	
 }

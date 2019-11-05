@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,76 +13,58 @@
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/dive.css">
 </head>
+
 <body>
 
-	<div th:fragment="sidebar" id="panel" class="activepanel ">
-		<div id="cpanel1head" style="margin: 0px; height: 10vh;" class="row">
-			<h2 id="titulopanel" class="col-lg-10">DIVEMOTOR</h2>
-			<i id="iconpanel" class="fa fa-bars col-lg-2"></i>
-		</div>
-		<div id="cpanelbody" class="row">
+	<div th:replace="fragments/sidebar :: sidebar" id="panel"
+		class="activepanel"></div>
 
-			<div class="panelitem">
-				<a th:href="@{/hola/home}"> <i class="fa fa-home"
-					style="color: #7764E4;"></i>
-				</a>
-				<p>Inicio</p>
-			</div>
+	<div class="bg row">
+		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 
-			<div class="panelitem">
-				<a th:href="@{/hola/home}"> <i class="fa fa-calendar"
-					style="color: #F66277;"></i>
-				</a>
-				<p>Importaciones</p>
-			</div>
-			<div class="panelitem">
-				<a  th:href="@{/products/list}"> <i class="fa fa-dropbox" style="color: #40D6F2;"></i>
-				</a>
-				<p>Productos</p>
-			</div>
-			<div class="panelitem">
-				<a  th:href="@{/category/list}"> <i class="fa fa-th-large" style="color: #5450D6;"></i>
-				</a>
-				<p>Categorias</p>
-			</div>
-			<div class="panelitem">
-				<a th:href="@{/brand/list}"> <i class="fa fa-braille" style="color: #FEC686;"></i>
-				</a>
-				<p>Marcas</p>
-			</div>
-			<div class="panelitem">
-				<a th:href="@{/transport/list}"> <i class="fa fa-truck" style="color: #159C47;"></i>
-				</a>
-				<p>Transporte</p>
-			</div>
-			<div class="panelitem">
-				<a> <i class="fa fa-address-book" style="color: #40D6F2;"></i>
-				</a>
-				<p>Usuarios</p>
-			</div>
-			<div class="panelitem">
-				<a> <i class="fa fa-share-alt" style="color: #A306FF;"></i>
-				</a>
-				<p>Cargos</p>
-			</div>
-			<div class="panelitem">
-				<a  th:href="@{/supplier/list}">
-				<i class="fa fa-codepen" style="color: #F2962C;"></i>
-				</a>
-				<p>Proveedores</p>
-			</div>
-			<div class="panelitem">
-				<a> <i class="fa fa-file" style="color: #D66D75;"></i>
-				</a>
-				<p>Informe</p>
-			</div>
-		
-			<div class="panelitem">
-				<a> <i class="fa fa-signal"></i>
-				</a>
-				<p>Reportes</p>
+		<div class="content container">
+			<form th:action="@{/supplier/buscar}" method="post" th:object="${supplier}">
+				<div class="form-group">
+					<label for="nameBrand">Buscar:</label> <input type="text"
+						class="form-control" th:field="*{supplierName}" id="nameBrand"></input>
+				</div>
+				<button type="submit" class="btn btn-primary">Aceptar</button>
+				<a href="/supplier/list" class="btn btn-danger">Cancelar</a>
+			</form>
+			<table class="table table-bordered table-hover table-striped"
+				id="tab_logic">
+				<thead>
+					<tr>
+						<th class="text-center">Id</th>
+						<th class="text-center">Proveedor</th>
+				
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="bra: ${listSuppliers}">
+						<td th:text="${bra.idSupplier}"></td>
+						<td th:text="${bra.supplierName}"></td>
+					
+					</tr>
+				</tbody>
+			</table>
+			<div th:if="${mensaje}" class="alert alert-info">
+				<p th:text="${mensaje}"></p>
 			</div>
 		</div>
 	</div>
+
+
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/jquery-3.3.1.slim.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/dive.js"></script>
 </body>
+
 </html>
+
+
+
+
+
+

@@ -3,7 +3,7 @@ package pe.edu.upc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/hola")
+@RequestMapping("/")
 @Controller
 public class MasterController {
 
@@ -13,7 +13,7 @@ public class MasterController {
 		return "ex";
 	}
 	
-	@RequestMapping("/home")
+	@RequestMapping("/")
 	public String Home()
 	{
 		return "inicio";
