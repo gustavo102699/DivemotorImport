@@ -1,6 +1,4 @@
-package pe.edu.upc.spring.entity;
-
-import java.io.Serializable;
+package pe.edu.upc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,16 +10,14 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Category")
-public class Category implements Serializable{
-
-	
-	private static final long serialVersionUID = 1L;
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCategory;
 
-	@Pattern(regexp = "[A-Za-z]+", message = "El nombre de la Category no puede contener un número")
+	@Pattern(regexp = "[^!\"#$%&'()*+,-./:;<=>?@^_`{|}~]+", message = "El nombre de la Categoría no puede contener un número")
+	@Pattern(regexp = "[^0-9]+", message = "El nombre de la Categoría no puede contener un número")
 	@Column(name = "CategoryName", nullable = false, length = 20)
 	private String categoryName;
 

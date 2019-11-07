@@ -1,9 +1,9 @@
-package pe.edu.upc.spring.service;
+package pe.edu.upc.service;
 
 import java.util.List;
+import java.util.Optional;
 
-
-import pe.edu.upc.spring.entity.Product;
+import pe.edu.upc.entity.Product;
 
 
 public interface IProductService {
@@ -17,6 +17,8 @@ public interface IProductService {
 	Product listarId(long idProducto);
 
 	List<Product> listar();
+	
+	Optional<Product> findById(Long idProduct);
 
 	//List<Product> buscarCategoria(String categoryName);
 

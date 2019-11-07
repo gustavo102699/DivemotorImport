@@ -44,7 +44,7 @@ public class BrandServiceImpl implements IBrandService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Brand> list() {
-		return bR.findAll(Sort.by(Sort.Direction.ASC, "brandName"));
+		return bR.findAll(Sort.by(Sort.Direction.ASC, "idBrand"));
 	}
 
 	@Override
