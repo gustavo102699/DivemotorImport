@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.controller;
+package pe.edu.upc.controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -20,79 +20,71 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.spring.entity.Category;
-import pe.edu.upc.spring.service.ICategoryService;
-
-
+import pe.edu.upc.entity.Category;
+import pe.edu.upc.service.ICategoryService;
 
 @Controller
 @RequestMapping("/category")
 public class CategoryController {
+
 	@Autowired
-	private ICategoryService cService;
-
-	@RequestMapping("/welcome")
-	public String irWelcome() {
-		return "welcome";
-	}
-
+	private ICategoryService cS;
+	
 	@GetMapping("/new")
-	public String newCategoria(Model model) {
+	public String newLBrand(Model model) {
 		model.addAttribute("category", new Category());
-		return "category/category"; // 1vista
+		return "category/category";
 	}
-
+	@GetMapping("/list")
+	public String listCategories(Model model) {
+		try {
+			model.addAttribute("category", new Category());
+			model.addAttribute("listCategories", cS.list());
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+		}
+		return "category/listCategory";
+	}
+	
 	@PostMapping("/save")
-	public String saveCategoria(@Valid Category category, BindingResult result, Model model, SessionStatus status)
+	public String saveMarca(@Valid Category category, BindingResult result, Model model, SessionStatus status)
 			throws Exception {
 		if (result.hasErrors()) {
 			return "category/category";
 		} else {
-			int rpta = cService.insert(category);
+			int rpta = cS.insert(category);
 			if (rpta > 0) {
 				model.addAttribute("mensaje", "Ya existe");
 				return "category/category";
 			} else {
-				model.addAttribute("mensajeff", "Se guardó correctamente");
+				model.addAttribute("mensaje", "Se guardó correctamente");
 				status.setComplete();
 			}
 		}
 		model.addAttribute("category", new Category());
 		return "redirect:/category/list";
 	}
-
-	@GetMapping("/list")
-	public String listCategoria(Model model) {
-		try {
-			model.addAttribute("category", new Category());
-			model.addAttribute("listCategory", cService.list());
-
-		} catch (Exception e) {
-			model.addAttribute("error", e.getMessage());
-		}
-		return "category/listCategory"; // 2vista
-	}
-
+	
 	@RequestMapping("/update/{id}")
 	public String updateCategoria(@PathVariable int id, Model model, RedirectAttributes objRedir) {
-		Optional<Category> category = cService.listId(id);
+		Optional<Category> category = cS.listId(id);
 
 		if (category == null) {
 			objRedir.addFlashAttribute("mensaje", "Ocurrio un error");
 			return "category/listCategory";
 		} else {
-			model.addAttribute("listCategory", cService.list());
+			model.addAttribute("listCategory", cS.list());
 
 			model.addAttribute("category", category);
 			return "category/category";
 		}
 	}
-
+	
 	@RequestMapping("/buscar")
 	public String buscar(Map<String, Object> model, @ModelAttribute Category category) throws ParseException {
 
 		List<Category> listaCategorias;
-		listaCategorias = cService.findName(category.getCategoryName());
+		listaCategorias = cS.findName(category.getCategoryName());
 
 		if (listaCategorias.isEmpty()) {
 
@@ -115,7 +107,7 @@ public class CategoryController {
 	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
 		try {
 			if (id != null && id > 0) {
-				cService.delete(id);
+				cS.delete(id);
 				model.put("mensaje", "Se eliminó correctamente");
 
 			}
@@ -123,7 +115,7 @@ public class CategoryController {
 			System.out.println(e.getMessage());
 			model.put("mensaje", "No se puede eliminar una libreria");
 		}
-		model.put("listcategories", cService.list());
+		model.put("listcategories", cS.list());
 
 		return "category/listCategory";
 	}

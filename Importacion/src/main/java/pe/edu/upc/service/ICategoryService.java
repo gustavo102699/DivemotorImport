@@ -1,15 +1,13 @@
-package pe.edu.upc.spring.service;
+package pe.edu.upc.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import pe.edu.upc.spring.entity.Category;
-
-
+import pe.edu.upc.entity.Category;
 
 public interface ICategoryService {
 
-	public Integer insert(Category category);
+	public Integer insert(  Category category);
 
 	public void delete(long idCategory);
 

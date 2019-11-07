@@ -1,6 +1,4 @@
-package pe.edu.upc.spring.entity;
-
-import java.io.Serializable;
+package pe.edu.upc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,31 +8,32 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "Product")
-public class Product implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
 
+	@Column(name = "foto", nullable = true)
+	private String foto;
+	
 	@Pattern(regexp = "[A-Za-z]+", message = "El nombre del Producto no puede contener un número")
-	@Column(name = "ProductName", nullable = false, length = 20)
+	@Column(name = "ProductName", nullable = false)
 	private String productName;
-
+	
+	@DecimalMin("1.00")
 	@Positive
-	@Column(name = "Price", nullable = false)
+	@Column(name = "Price", columnDefinition = "Decimal(8,2)", nullable = false)
 	private Double price;
 
-	@Positive
-	@Column(name = "Unit", nullable = false)
-	private int unit;
+	@Column(name = "unit", nullable = false)
+	private String unit;
 
 	@ManyToOne
 	@JoinColumn(name = "idBrand", nullable = false)
@@ -47,29 +46,6 @@ public class Product implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idSupplier", nullable = false)
 	private Supplier supplier;
-
-	private String foto;
-	
-
-	public Product(long idProducto,
-			@Pattern(regexp = "[A-Za-z]+", message = "El nombre del Producto no puede contener un número") String productName,
-			@Positive Double price, @Positive int unit, Brand brand, Category category, Supplier supplier,
-			String foto) {
-		super();
-		this.idProducto = idProducto;
-		this.productName = productName;
-		this.price = price;
-		this.unit = unit;
-		this.brand = brand;
-		this.category = category;
-		this.supplier = supplier;
-		this.foto = foto;
-	}
-
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public long getIdProducto() {
 		return idProducto;
@@ -95,11 +71,13 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public int getUnit() {
+
+
+	public String getUnit() {
 		return unit;
 	}
 
-	public void setUnit(int unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 

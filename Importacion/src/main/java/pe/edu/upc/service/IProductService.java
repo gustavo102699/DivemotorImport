@@ -1,9 +1,8 @@
-package pe.edu.upc.spring.service;
+package pe.edu.upc.service;
 
 import java.util.List;
 
-
-import pe.edu.upc.spring.entity.Product;
+import pe.edu.upc.entity.Product;
 
 
 public interface IProductService {

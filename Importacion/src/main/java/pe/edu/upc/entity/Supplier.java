@@ -1,6 +1,4 @@
-package pe.edu.upc.spring.entity;
-
-import java.io.Serializable;
+package pe.edu.upc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,10 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Supplier")
-public class Supplier implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-
+public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idSupplier;

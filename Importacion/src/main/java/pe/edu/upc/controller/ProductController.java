@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.controller;
+package pe.edu.upc.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,12 +24,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.spring.entity.Product;
-import pe.edu.upc.spring.service.IBrandService;
-import pe.edu.upc.spring.service.ICategoryService;
-import pe.edu.upc.spring.service.IProductService;
-import pe.edu.upc.spring.service.ISupplierService;
-import pe.edu.upc.spring.service.IUploadFileService;
+import pe.edu.upc.entity.Product;
+import pe.edu.upc.service.IBrandService;
+import pe.edu.upc.service.ICategoryService;
+import pe.edu.upc.service.IProductService;
+import pe.edu.upc.service.ISupplierService;
+import pe.edu.upc.service.IUploadFileService;
 
 @Controller
 @RequestMapping("/products")
@@ -89,7 +89,7 @@ public class ProductController {
 		return "product/listProducts"; // vistaa
 	}
 
-	@RequestMapping("/irRegistrar")
+	@RequestMapping("/new")
 	public String irRegistrar(Model model) {
 		model.addAttribute("listaCategorias", cService.list());
 		model.addAttribute("listaMarcas", bService.list());
@@ -98,7 +98,7 @@ public class ProductController {
 		return "product/product"; // vista
 	}
 
-	@RequestMapping("/registrar")
+	@RequestMapping("/save")
 	public String registrar(@ModelAttribute @Valid Product objPro, BindingResult binRes, Model model,
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status)
 			throws ParseException {
@@ -127,10 +127,10 @@ public class ProductController {
 			}
 			boolean flag = pService.insert(objPro);
 			if (flag) {
-				return "redirect:/products/listar";
+				return "redirect:/products/list";
 			} else {
 				model.addAttribute("mensaje", "OcurriÃ³ un error");
-				return "redirect:/products/irRegistrar";
+				return "redirect:/products/new";
 			}
 		}
 	}
@@ -145,11 +145,11 @@ public class ProductController {
 
 			if (flag) {
 				objRedir.addFlashAttribute("mensaje", "Se actualizÃ³ correctamente");
-				return "redirect:/products/listar";
+				return "redirect:/products/list";
 
 			} else {
 				objRedir.addFlashAttribute("mensaje", "OcurriÃ³ un error");
-				return "redirect:/products/listar";
+				return "redirect:/products/list";
 			}
 		}
 	}
@@ -190,7 +190,7 @@ public class ProductController {
 		return "product/listProducts"; // vistas
 	}
 
-	@RequestMapping("/listar")
+	@RequestMapping("/list")
 	public String listar(Map<String, Object> model) {
 
 		model.put("listaProductos", pService.listar());

@@ -1,6 +1,4 @@
-package pe.edu.upc.spring.entity;
-
-import java.io.Serializable;
+package pe.edu.upc.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +11,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Brand")
-public class Brand implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Brand {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

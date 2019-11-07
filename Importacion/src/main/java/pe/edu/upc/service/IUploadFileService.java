@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.service;
+package pe.edu.upc.service;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
