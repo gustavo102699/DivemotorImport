@@ -24,20 +24,30 @@
 
 		<div class="content container">
 			<div class="d-flex">
-				<h3 class="title-content" th:text="${titulo}">Requerimientos</h3>
+				<h3 th:text="'Archivo para Importacion #'+ ${importation.idImportation}" class="title-content"></h3>
 			</div>
 			<div>
 
-				<form th:action="@{/files/add}" method="post"
-					th:object="${importation}" enctype="multipart/form-data">
+				<form th:action="@{'/importation/savefile'+${importation.idImportation}}" method="post"
+					th:object="${legalfile}" enctype="multipart/form-data">
+
+					<div class="form-group">
+						<label for="redaccion">Seleccione el archivo:</label> <select
+							class="form-control" th:field="*{template.idTemplate}">
+							<option th:each="f: ${listFiles}" th:value="${f.idTemplate}"
+								th:text="${f.templateName}"
+								th:selected="(${f.idTemplate} == *{template.idTemplate})"></option>
+						</select> <label for="redaccion">Redacte el archivo:</label> <input
+							type="text" required th:field="*{bodyFile}" class="form-control"
+							id="redaccion"></input>
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('bodyFile')}" th:errors="*{bodyFile}"></div>
+
+					</div>
 					
-					
-					<select class="form-control" th:field="*{supplier.idSupplier}">
-						<option th:each="t: ${listTemplates}"
-							th:value="${t.idTemplate}" th:text="${s.templateName}"
-							th:selected="(${s.idSupplier} == *{supplier.idSupplier})"></option>
-					</select>
-					
+					<button type="submit" class="btnadd btn btn-primary">Agregar</button>
+					<a th:href="@{'/importation/files/' + ${importation.idImportation}}" class="btncancel btn btn-danger">Cancelar</a>
+
 				</form>
 			</div>
 

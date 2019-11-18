@@ -16,54 +16,38 @@
 
 <body>
 
-	<div th:replace="fragments/sidebar :: sidebar" id="panel"
-		class="activepanel"></div>
+	<div th:replace="fragments/sidebar :: sidebar" id="panel" class="activepanel"></div>
 
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
-
-		<div class="content container">
+		
+				<div class="content container">
 
 			<div class="d-flex">
-				<h3 class="title-content">Lista de Importaciones</h3>
-				<a th:href="@{/importation/new}" class="btnnew btn btn-primary">Nuevo</a>
+				<h3 class="title-content" th:text="${titulo}"></h3>
+				<a th:href="@{'/importation/newfile/' + ${importation.idImportation} }" class="btnnew btn btn-primary">Nuevo</a>
+				<a th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
 			</div>
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
 						<th scope="col" class="text-center">ID</th>
-						<th scope="col" class="text-center">Dia creado</th>
-						<th scope="col" class="text-center">Dia de etrega</th>
-					
-						<th scope="col" class="text-center">Modificar</th>
-						<th scope="col" class="text-center">Eliminar</th>
-						<th scope="col" class="text-center">Ver detalle</th>
-						<th scope="col" class="text-center">Archivos Legales</th>
+						<th scope="col" class="text-center">Tipo de Archivo</th>
+						<th scope="col" class="text-center">Fecha de creacion</th>
+						<th scope="col" class="text-center">Ver Archivo</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="imp : ${listaImportations}">
-						<td class="text-center" th:text="${imp.idImportation}"></td>
-						<td class="text-center" th:text="${imp.requestDate}"></td>
-						<td class="text-center" th:text="${imp.deliveryDate}"></td>
-						<td class="text-center"><a
-							th:href="@{'/importation/modificar/' + ${imp.idImportation}}">Modificar</a></td>
-						<td class="text-center"><a
-							th:href="@{/importation/eliminar?id=}+${imp.idImportation}">Eliminar</a></td>
-							
-						<td class="text-center"><a th:href="@{'/importation/detail/' + ${imp.idImportation}}"
-							class="btn btn-dark">Detalle</a></td>
-							
-						<td class="text-center"><a th:href="@{'/importation/files/' + ${imp.idImportation}}"
-							class="btn btn-dark">Archivos Legales </a></td>
+					<tr th:each="l : ${importation.legalFiles}">
+						<td class="text-center" th:text="${l.idLegalFiles}"></td>
+						<td class="text-center" th:text="${l.template.templateName}"></td>
+						<td class="text-center" th:text="${l.CreateDate}"></td>
+							<td><a th:href="@{'/importation/'+ ${importation.idImportation} + '/fileredaction/' + ${l.idLegalFiles}}"
+							class="btn btn-danger">Visualizar</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<div th:if="${error}" class="alert alert-danger">
-			<p th:text="${error}"></p>
-		</div>
-
 	</div>
 
 

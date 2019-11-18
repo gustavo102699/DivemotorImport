@@ -24,48 +24,50 @@
 
 		<div class="content container">
 
+
 			<div class="d-flex">
-				<h3 class="title-content">Lista de Importaciones</h3>
-				<a th:href="@{/importation/new}" class="btnnew btn btn-primary">Nuevo</a>
-			</div>
-			<table class="table">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col" class="text-center">ID</th>
-						<th scope="col" class="text-center">Dia creado</th>
-						<th scope="col" class="text-center">Dia de etrega</th>
+				<h3 class="title-content" th:text="${titulo}"></h3>
+				<a th:href="@{'/importation/newproduct/' + ${importation.idImportation} }" class="btnnew btn btn-primary">Nuevo</a>
+				<a th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
+			</div>	
+			<div class="card">
+				<div class="card-header text-white bg-dark"
+					th:text=" 'Importacion #' + ${importation.idImportation}"></div>
+				<div class="card-body">
+
 					
-						<th scope="col" class="text-center">Modificar</th>
-						<th scope="col" class="text-center">Eliminar</th>
-						<th scope="col" class="text-center">Ver detalle</th>
-						<th scope="col" class="text-center">Archivos Legales</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="imp : ${listaImportations}">
-						<td class="text-center" th:text="${imp.idImportation}"></td>
-						<td class="text-center" th:text="${imp.requestDate}"></td>
-						<td class="text-center" th:text="${imp.deliveryDate}"></td>
-						<td class="text-center"><a
-							th:href="@{'/importation/modificar/' + ${imp.idImportation}}">Modificar</a></td>
-						<td class="text-center"><a
-							th:href="@{/importation/eliminar?id=}+${imp.idImportation}">Eliminar</a></td>
-							
-						<td class="text-center"><a th:href="@{'/importation/detail/' + ${imp.idImportation}}"
-							class="btn btn-dark">Detalle</a></td>
-							
-						<td class="text-center"><a th:href="@{'/importation/files/' + ${imp.idImportation}}"
-							class="btn btn-dark">Archivos Legales </a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div th:if="${error}" class="alert alert-danger">
-			<p th:text="${error}"></p>
-		</div>
+					<div class="table-responsive">
+						<table th:if="${not #lists.isEmpty(importation.importDetails)}"
+							class="table table-striped">
+							<thead class="bg-dark text-white">
+								<tr align="center">
+									<th>Producto</th>
+									<th>Precio</th>
+									<th>Cantidad</th>
+									<th>Importe</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr align="center" th:each="line: ${importation.importDetails}">
+									<td th:text="${line.product.productName}"></td>
+									<td th:text="${line.product.price}"></td>
+									<td th:text="${line.quantity}"></td>
+									<td th:text="${line.calcularSubTotal()}"></td>
+								</tr>
+							</tbody>
 
+						</table>
+
+						<h5 class="float-right">
+							Total: <span th:text="${importation.getTotal()}"
+								class="badge badge-danger"></span>
+						</h5>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
-
 
 	<script src="/js/popper.min.js"></script>
 	<script src="/js/jquery-3.3.1.slim.min.js"></script>

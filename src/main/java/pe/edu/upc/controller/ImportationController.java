@@ -2,7 +2,6 @@ package pe.edu.upc.controller;
 
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.entity.FileTemplate;
 import pe.edu.upc.entity.ImportDetails;
 import pe.edu.upc.entity.Importation;
+import pe.edu.upc.entity.LegalFiles;
 import pe.edu.upc.service.IImportationService;
+import pe.edu.upc.service.ILegalFileService;
 import pe.edu.upc.service.IProductService;
 import pe.edu.upc.service.ITemplateService;
 import pe.edu.upc.service.ITransportService;
@@ -41,11 +41,44 @@ public class ImportationController {
 	@Autowired
 	private ITemplateService teS;
 	
+	@Autowired
+	private ILegalFileService lS;
+	
+	
+	
 	@RequestMapping("/new")
 	public String irRegistrar(Model model) {
 		model.addAttribute("listaTransportes", tS.list());
 		model.addAttribute("importation", new Importation());
 		return "importation/importation"; // vista
+	}
+	
+	@RequestMapping("/newfile/{id}")
+	public String irNewFile(@PathVariable(value = "id") Long id,Map<String, Object> model)
+	{
+		Date createdate = new Date();
+		LegalFiles legalfile= new LegalFiles();
+		legalfile.setCreateDate(createdate);
+		model.put("legalfile", legalfile);
+		model.put("listFiles",teS.list());
+		
+		Importation objimp = iS.listarId(id);
+		model.put("importation", objimp);
+		
+		return "importation/files/legalFilesForm";
+	}
+	
+	@RequestMapping("/newproduct/{id}")
+	public String irNewProduct(@PathVariable(value = "id") Long id,Map<String, Object> model)
+	{
+		
+		model.put("detail", new ImportDetails());
+		model.put("listProducts",pS.listar());
+		
+		Importation objimp = iS.listarId(id);
+		model.put("importation", objimp);
+		
+		return "importation/details/detailForm";
 	}
 	
 	@RequestMapping("/modificar/{id}")
@@ -64,7 +97,6 @@ public class ImportationController {
 	
 	@RequestMapping("/list")
 	public String listar(Map<String, Object> model) {
-
 		model.put("listaImportations", iS.listar());
 		return "importation/listImportation";
 	}
@@ -86,61 +118,50 @@ public class ImportationController {
 	
 	
 	@GetMapping("/detail/{id}")
-	public String detailImportation(@PathVariable(value = "id") Long id, Model model) {
-
-		try {
-			Optional<Importation> imp = iS.fetchByImportIdWhithImportDetailsWithProduct(id);
-			
-			if (!imp.isPresent()) {
-				model.addAttribute("error", "Orden no existe");
-				return "redirect:/importation/list";
-			}
-			
-
-			model.addAttribute("importation", imp.get());
-		} catch (Exception e) {
-			model.addAttribute("error", e.getMessage());
+	public String detailImportation(@PathVariable(value = "id") Long id, Map<String, Object> model,RedirectAttributes flash) {
+	Importation imp = iS.listarId(id);
+		
+		if (imp == null) {
+			flash.addFlashAttribute("error", "El Detalle no existe en la base de datos");
+			return "importation/listImportation"; // vistaaaaa
 		}
+		model.put("importation", imp);
+		model.put("titulo", "Detalle de Importacion #" + imp.getIdImportation());
 
-		return "importation/importationDetails";
+		return "importation/details/listDetail"; // vista
 	}
 	
-	
-	
-	
 	@GetMapping(value = "/files/{id}")
-	public String ver(@PathVariable(value = "id") long id, Map<String, Object> model, RedirectAttributes flash) {
+	public String verDetalle(@PathVariable(value = "id") long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Importation imp = iS.listarId(id);
-		ImportDetails idet = new ImportDetails();
 		
 		if (imp == null) {
 			flash.addFlashAttribute("error", "El Archivo no existe en la base de datos");
-			return "template/listTemplate"; // vistaaaaa
+			return "importation/listImportation"; // vistaaaaa
 		}
 		model.put("importation", imp);
-		model.put("importationDetail", idet);
-		model.put("listTemplates", teS.list());
-		model.put("titulo", "Archivos legales de Importacion# : " + imp.getIdImportation());
+		model.put("titulo", "Archivos legales de Importacion #" + imp.getIdImportation());
 
-		return "template/templatebody"; // vista
+		return "importation/files/listFiles"; // vista
 	}
 	
-	/*
-		@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") long id, Map<String, Object> model, RedirectAttributes flash) {
 
-		FileTemplate temp = tS.listId(id);
-		if (temp == null) {
+	@GetMapping(value = "/{idimp}/fileredaction/{id}")
+	public String verRedacciondeArchivo(@PathVariable(value = "id") long id, @PathVariable(value = "idimp") long idimp, Map<String, Object> model, RedirectAttributes flash) {
+
+		LegalFiles file = lS.listarId(id);
+		Importation imp = iS.listarId(idimp);
+		if (file == null) {
 			flash.addFlashAttribute("error", "El Archivo no existe en la base de datos");
-			return "template/listTemplate"; // vistaaaaa
+			return "redirect:/home"; // vistaaaaa
 		}
-		model.put("template", temp);
-		model.put("titulo", "Requisitos para la redaccion de : " + temp.getTemplateName());
-
-		return "template/templatebody"; // vista
+		model.put("titulo", "Archivo redaccion de " + file.getTemplate().getTemplateName() + " para la importacion #"+imp.getIdImportation());
+		model.put("file", file);
+		model.put("importation", imp);
+		return "importation/files/viewFile"; // vista
 	}
-	*/
+	
 	
 	@PostMapping("/save")
 	public String saveOrder(@Valid Importation importation, Model model, SessionStatus status) {
@@ -155,6 +176,37 @@ public class ImportationController {
 		}
 
 		return "redirect:/importation/list";
+	}
+	
+	@PostMapping("/saveproduct{id}")
+	public String newProductXImportation(@PathVariable(value = "id") long id,@Valid ImportDetails importationdet , Model model,SessionStatus status) {
+		Importation imp = iS.listarId(id);
+		try
+		{
+			imp.addDetailImportation(importationdet);
+			iS.insert(imp);		
+		}catch (Exception e) {
+			model.addAttribute("error",e.getMessage());
+			return "redirect:/home";
+		}
+		String cadena ="redirect:/importation/detail/"+ id;
+		return cadena;
+	}
+	
+	//faltaaaa
+	@PostMapping("/savefile{id}")
+	public String save(@PathVariable(value = "id") long id,@Valid LegalFiles file, Model model, SessionStatus status) {		
+		Importation imp = iS.listarId(id);
+		try
+		{
+			imp.addLegalFile(file);
+			iS.insert(imp);		
+		}catch (Exception e) {
+			model.addAttribute("error",e.getMessage());
+			return "redirect:/home";
+		}
+		String cadena ="redirect:/importation/files/"+ id;
+		return cadena;
 	}
 	
 	

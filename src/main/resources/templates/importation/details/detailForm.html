@@ -23,49 +23,41 @@
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 
 		<div class="content container">
-
-
-			<div class="card">
-				<div class="card-header text-white bg-dark"
-					th:text="'Importacion #: ' + ${importation.idImportation}+  '  - Fecha : '+${#dates.format(importation.requestDate+'dd/MM/yyyy')}"></div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<div class="alert alert-danger my-4"
-							th:if="${#lists.isEmpty(importation.import_details)}"
-							th:text="El voucher no tiene detalle"></div>
-
-
-						<table th:if="${not #lists.isEmpty(importation.import_details)}"
-							class="table table-striped">
-							<thead class="bg-dark text-white">
-								<tr align="center">
-									<th>Producto</th>
-									<th>Precio</th>
-									<th>Cantidad</th>
-									<th>Importe</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr align="center" th:each="line: ${importation.import_details}">
-									<td th:text="${line.product.productName}"></td>
-									<td th:text="${line.product.price}"></td>
-									<td th:text="${line.quantity}"></td>
-									<td th:text="${line.calculateAmount()}"></td>
-								</tr>
-							</tbody>
-
-						</table>
-
-						<h5 class="float-right">
-							Total <span th:text="${importation.calcularSubTotal()}"
-								class="badge badge-danger"></span>
-						</h5>
-					</div>
-				</div>
+			<div class="d-flex">
+				<h3
+					th:text="'Nuevo producto para Importacion #'+ ${importation.idImportation}"
+					class="title-content"></h3>
 			</div>
 
+			<form
+				th:action="@{'/importation/saveproduct'+${importation.idImportation}}"
+				method="post" th:object="${detail}">
+				<div class="form-group">
+
+
+					<label for="" class=" col-form-label">Producto: </label> <select
+						class="form-control" th:field="*{product.idProducto}">
+						<option th:each="p: ${listProductos}" th:value="${p.idProducto}"
+							th:text="${p.productName}"
+							th:selected="(${p.idProducto} == *{product.idProducto})"></option>
+					</select>
+					
+					<label for="quantity">PRECIO:</label> <input type="number"
+								th:field="*{quantity}" class="form-control" id="quantity"></input>
+							<div class="alert alert-danger"
+								th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+
+
+				</div>
+
+				<button type="submit" class="btnadd btn btn-primary">Agregar</button>
+				<a th:href="@{'/importation/detail/' + ${importation.idImportation}}"
+					class="btncancel btn btn-danger">Cancelar</a>
+
+			</form>
 		</div>
 	</div>
+
 
 	<script src="/js/popper.min.js"></script>
 	<script src="/js/jquery-3.3.1.slim.min.js"></script>
@@ -74,3 +66,5 @@
 </body>
 
 </html>
+
+

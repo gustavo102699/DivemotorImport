@@ -31,7 +31,7 @@ public class LegalFiles {
 	private FileTemplate template;
 	
 	@NotEmpty(message = "Redacte el archivo")
-	@Column(name = "first_name", nullable = false, length = 700)
+	@Column(name = "redaction", nullable = false, length = 700)
 	private String bodyFile;
 	
 	@Column(name = "createDate")
