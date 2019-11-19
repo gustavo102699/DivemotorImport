@@ -1,9 +1,9 @@
-package pe.edu.upc.spring.service;
+package pe.edu.upc.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import pe.edu.upc.spring.entity.Supplier;
+import pe.edu.upc.entity.Supplier;
 
 
 
@@ -18,4 +18,6 @@ public interface ISupplierService {
 	List<Supplier> list();
 
 	List<Supplier> findName(String supplierName);
+	
+	public List<String[]> supplierXimp();
 }
