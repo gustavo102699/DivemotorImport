@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.serviceImpl;
+package pe.edu.upc.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pe.edu.upc.spring.entity.Supplier;
-import pe.edu.upc.spring.repository.ISupplierRepository;
-import pe.edu.upc.spring.service.ISupplierService;
+import pe.edu.upc.entity.Supplier;
+import pe.edu.upc.repository.ISupplierRepository;
+import pe.edu.upc.service.ISupplierService;
 
 
 
@@ -52,5 +52,9 @@ public class SupplierServiceImpl implements ISupplierService {
 	@Transactional(readOnly = true)
 	public List<Supplier> findName(String supplierName) {
 		return sR.buscarNombre(supplierName);
+	}
+	@Override
+	public List<String[]> supplierXimp() {
+		return sR.suppliertop();
 	}
 }
