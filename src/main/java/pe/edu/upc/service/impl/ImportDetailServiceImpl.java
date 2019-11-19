@@ -19,7 +19,7 @@ public class ImportDetailServiceImpl implements IImportDetailService{
 
 
 	@Override
-	public void delete(long idImportDetail) {
+	public void delete(Long idImportDetail) {
 		ideR.deleteById(idImportDetail);
 	}
 

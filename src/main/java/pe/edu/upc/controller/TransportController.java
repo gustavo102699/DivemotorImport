@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,7 +67,7 @@ public class TransportController {
 	}
 
 	@RequestMapping("/update/{id}")
-	public String updateTransport(@PathVariable int id, Model model, RedirectAttributes objRedir) {
+	public String updateTransport(@PathVariable Long id, Model model, RedirectAttributes objRedir) {
 		Optional<Transport> transport = tS.listId(id);
 
 		if (transport == null) {
@@ -105,8 +104,8 @@ public class TransportController {
 		return "transport/findTransport";
 	}
 
-	@RequestMapping("/delete")
-	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
+	@RequestMapping("/eliminar/{id}")
+	public String delete(Map<String, Object> model, @PathVariable(value = "id") Long id) {
 		try {
 			if (id != null && id > 0) {
 				tS.delete(id);

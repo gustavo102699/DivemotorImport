@@ -34,6 +34,7 @@
 						<th scope="col" class="text-center">ID</th>
 						<th scope="col" class="text-center">Nombre</th>
 						<th scope="col" class="text-center">Empresa</th>
+						<th scope="col" class="text-center">Operacion</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,11 +42,12 @@
 						<td class="text-center" th:text="${bra.idBrand}"></td>
 						<td class="text-center" th:text="${bra.brandName}"></td>
 						<td class="text-center" th:text="${bra.enterprise}"></td>
+						<td class="text-center"><a  th:href="@{'/brand/eliminar/'+${bra.idBrand}}"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		
+
 		<div th:if="${mensaje}" class="alert alert-danger">
 			<p th:text="${mensaje}"></p>
 		</div>

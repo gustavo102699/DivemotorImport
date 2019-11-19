@@ -111,7 +111,7 @@ public class SupplierController {
 		return "supplier/findSupplier";
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/eliminar")
 	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
 		try {
 			if (id != null && id > 0) {
@@ -121,11 +121,11 @@ public class SupplierController {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			model.put("mensaje", "No se puede eliminar una libreria");
+			model.put("mensaje", "No se puede eliminar");
 		}
 		model.put("listsuppliers", sService.list());
 
-		return "supplier/listSupplier";
+		return "redirect:/supplier/list";
 	}
 
 }

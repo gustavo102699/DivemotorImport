@@ -8,9 +8,9 @@ import pe.edu.upc.entity.Transport;
 public interface ITransportService {
 	public Integer insert(Transport transport);
 
-	public void delete(long idTransport);
+	public void delete(Long idTransport);
 
-	Optional<Transport> listId(long idTransport);
+	Optional<Transport> listId(Long idTransport);
 
 	List<Transport> list();
 

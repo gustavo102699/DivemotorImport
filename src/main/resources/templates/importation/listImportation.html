@@ -47,9 +47,9 @@
 						<td class="text-center" th:text="${imp.requestDate}"></td>
 						<td class="text-center" th:text="${imp.deliveryDate}"></td>
 						<td class="text-center"><a
-							th:href="@{'/importation/modificar/' + ${imp.idImportation}}">Modificar</a></td>
+							th:href="@{'/importation/modificar/' + ${imp.idImportation}}"><i class="fa fa-edit" style="color: blue;"></i></a></td>
 						<td class="text-center"><a
-							th:href="@{/importation/eliminar?id=}+${imp.idImportation}">Eliminar</a></td>
+							th:href="@{/importation/eliminar?id=}+${imp.idImportation}"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
 							
 						<td class="text-center"><a th:href="@{'/importation/detail/' + ${imp.idImportation}}"
 							class="btn btn-dark">Detalle</a></td>

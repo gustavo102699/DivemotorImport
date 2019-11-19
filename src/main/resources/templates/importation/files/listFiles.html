@@ -16,17 +16,20 @@
 
 <body>
 
-	<div th:replace="fragments/sidebar :: sidebar" id="panel" class="activepanel"></div>
+	<div th:replace="fragments/sidebar :: sidebar" id="panel"
+		class="activepanel"></div>
 
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
-		
-				<div class="content container">
+
+		<div class="content container">
 
 			<div class="d-flex">
 				<h3 class="title-content" th:text="${titulo}"></h3>
-				<a th:href="@{'/importation/newfile/' + ${importation.idImportation} }" class="btnnew btn btn-primary">Nuevo</a>
-				<a th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
+				<a
+					th:href="@{'/importation/newfile/' + ${importation.idImportation} }"
+					class="btnnew btn btn-primary">Nuevo</a> <a
+					th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
 			</div>
 			<table class="table">
 				<thead class="thead-light">
@@ -35,6 +38,7 @@
 						<th scope="col" class="text-center">Tipo de Archivo</th>
 						<th scope="col" class="text-center">Fecha de creacion</th>
 						<th scope="col" class="text-center">Ver Archivo</th>
+						<th scope="col" class="text-center"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,8 +46,12 @@
 						<td class="text-center" th:text="${l.idLegalFiles}"></td>
 						<td class="text-center" th:text="${l.template.templateName}"></td>
 						<td class="text-center" th:text="${l.CreateDate}"></td>
-							<td><a th:href="@{'/importation/'+ ${importation.idImportation} + '/fileredaction/' + ${l.idLegalFiles}}"
-							class="btn btn-danger">Visualizar</a></td>
+						<td class="text-center"><a
+							th:href="@{'/importation/'+ ${importation.idImportation} + '/fileredaction/' + ${l.idLegalFiles}}"
+							class="btn btn-dark">Visualizar</a></td>
+						<td class="text-right"><a
+							th:href="@{'/importation/'+ ${importation.idImportation} + '/updatefile/' + ${l.idLegalFiles}}"
+							class="btn btn-danger">edit</a></td>
 					</tr>
 				</tbody>
 			</table>

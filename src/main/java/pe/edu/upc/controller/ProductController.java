@@ -144,7 +144,7 @@ public class ProductController {
 			boolean flag = pService.modificar(objPro);
 
 			if (flag) {
-				objRedir.addFlashAttribute("mensaje", "Se actualizÃ³ correctamente");
+				objRedir.addFlashAttribute("mensaje", "Se actualizo correctamente");
 				return "redirect:/products/list";
 
 			} else {
@@ -170,8 +170,8 @@ public class ProductController {
 		}
 	}
 
-	@RequestMapping("/eliminar")
-	public String eliminar(Map<String, Object> model, @RequestParam(value = "id") Integer id,
+	@RequestMapping("/eliminar/{id}")
+	public String eliminar(Map<String, Object> model, @PathVariable(value = "id") Integer id,
 			RedirectAttributes flash) {
 		try {
 			Product pro = pService.listarId(id);
@@ -183,7 +183,7 @@ public class ProductController {
 				model.put("listaProductos", pService.listar());
 			}
 		} catch (Exception e) {
-			model.put("mensaje", "Se eliminÃ³");
+			model.put("mensaje", "No se pudo eliminar");
 			model.put("listaProductos", pService.listar());
 
 		}

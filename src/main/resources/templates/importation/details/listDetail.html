@@ -27,15 +27,17 @@
 
 			<div class="d-flex">
 				<h3 class="title-content" th:text="${titulo}"></h3>
-				<a th:href="@{'/importation/newproduct/' + ${importation.idImportation} }" class="btnnew btn btn-primary">Nuevo</a>
-				<a th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
-			</div>	
+				<a
+					th:href="@{'/importation/newproduct/' + ${importation.idImportation} }"
+					class="btnnew btn btn-primary">Nuevo</a> <a
+					th:href="@{/importation/list }" class="btnnew btn btn-danger">Regresar</a>
+			</div>
 			<div class="card">
 				<div class="card-header text-white bg-dark"
 					th:text=" 'Importacion #' + ${importation.idImportation}"></div>
 				<div class="card-body">
 
-					
+
 					<div class="table-responsive">
 						<table th:if="${not #lists.isEmpty(importation.importDetails)}"
 							class="table table-striped">
@@ -45,6 +47,8 @@
 									<th>Precio</th>
 									<th>Cantidad</th>
 									<th>Importe</th>
+									<th></th>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -53,6 +57,9 @@
 									<td th:text="${line.product.price}"></td>
 									<td th:text="${line.quantity}"></td>
 									<td th:text="${line.calcularSubTotal()}"></td>
+									<td class="text-rigth"><a
+										th:href="@{'/importation/' + ${importation.idImportation} + '/eliminardetail/'+${line.idImportDetails}}">X</a></td>
+
 								</tr>
 							</tbody>
 
@@ -60,8 +67,11 @@
 
 						<h5 class="float-right">
 							Total: <span th:text="${importation.getTotal()}"
-								class="badge badge-danger"></span>
+								class="badge badge-dark"></span>
 						</h5>
+						<div th:if="${mensaje1}" class="alert alert-primary">
+							<p th:text="${mensaje}"></p>
+						</div>
 					</div>
 				</div>
 			</div>

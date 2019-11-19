@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -106,13 +105,12 @@ public class BrandController {
 		return "brand/findBrand";
 	}
 
-	@RequestMapping("/delete")
-	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
+	@RequestMapping("/eliminar/{id}")
+	public String delete(Map<String, Object> model, @PathVariable(value = "id") Long id) {
 		try {
 			if (id != null && id > 0) {
 				bService.delete(id);
 				model.put("mensaje", "Se eliminó correctamente");
-
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -120,6 +118,6 @@ public class BrandController {
 		}
 		model.put("listbrands", bService.list());
 
-		return "brand/listBrand";
+		return "redirect:/brand/list";
 	}
 }

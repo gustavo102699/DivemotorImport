@@ -27,7 +27,6 @@
 			<div class="d-flex">
 				<h3 class="title-content">Lista de Productos</h3>
 				<a th:href="@{/products/new}" class="btnnew btn btn-primary">Nuevo</a>
-				<a th:href="@{/products/irBuscar}" class="btnnew btn btn-primary">Buscar</a>
 			</div>
 			<table class="table">
 				<thead class="thead-light">
@@ -46,29 +45,30 @@
 				</thead>
 				<tbody>
 					<tr th:each="p: ${listaProductos}">
-						<td><a class="btn btn-primary btn-xs"
+						<td class="text-center"><a class="btn btn-primary btn-xs"
 							th:href="@{/products/ver/} + ${p.idProducto}"
 							th:text="${p.idProducto}"></a></td>
-						<td th:text="${p.productName}"></td>
-						<td th:text="${p.price}"></td>
-						<td th:text="${p.unit}"></td>
-						<td th:text="${p.brand.brandName}"></td>
-						<td th:text="${p.category.categoryName}"></td>
-						<td th:text="${p.supplier.supplierName}"></td>
-						<td><a th:href="@{/products/eliminar?id=}+${p.idProducto}">Eliminar</a></td>
-						<td><a th:href="@{'/products/modificar/' + ${p.idProducto}}">Modificar</a></td>
-						<td align="center"><a
+						<td class="text-center" th:text="${p.productName}"></td>
+						<td class="text-center" th:text="${p.price}"></td>
+						<td class="text-center" th:text="${p.unit}"></td>
+						<td class="text-center" th:text="${p.brand.brandName}"></td>
+						<td class="text-center" th:text="${p.category.categoryName}"></td>
+						<td class="text-center" th:text="${p.supplier.supplierName}"></td>
+						<td class="text-center"><a th:href="@{'/products/eliminar/'+ ${p.idProducto} }"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
+						<td class="text-center"><a th:href="@{'/products/modificar/' + ${p.idProducto}}"><i class="fa fa-edit" style="color: blue;"></i></a></td>
+						<td class="text-center" align="center"><a
 							th:href="@{/products/ver/} + ${p.idProducto}">
 							
-							<i class="fa fa-dropbox" style="color: #40D6F2;"></i>
+							<i class="fa fa-eye" style="color: gray;"></i>
 							</a></td>
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div th:if="${mensaje}" class="alert alert-danger">
+			<div th:if="${mensaje}" class="alert alert-danger">
 			<p th:text="${mensaje}"></p>
 		</div>
+		</div>
+		
 
 	</div>
 

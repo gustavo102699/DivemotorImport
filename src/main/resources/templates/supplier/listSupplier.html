@@ -33,12 +33,15 @@
 					<tr>
 						<th scope="col" class="text-center">ID</th>
 						<th scope="col" class="text-center">Nombre</th>
+						<th scope="col" class="text-center">Operacion</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="cat : ${listSupplier}">
 						<td class="text-center" th:text="${cat.idSupplier}"></td>
 						<td class="text-center" th:text="${cat.supplierName}"></td>
+						<td class="text-center"><a
+							th:href="@{/supplier/eliminar?id=}+${cat.idSupplier}"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
 					</tr>
 				</tbody>
 			</table>

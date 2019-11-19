@@ -24,7 +24,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
 
-	@Column(name = "foto", nullable = false)
+	@Column(name = "foto", nullable = true)
 	private String foto;
 	
 	@Pattern(regexp = "[^!\"#$%&'()*+,-./:;<=>?@^_`{|}~]+", message = "El nombre del producto no puede contener un número")

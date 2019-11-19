@@ -8,7 +8,7 @@ import pe.edu.upc.entity.ImportDetails;
 public interface IImportDetailService {
 	public Integer insert(  ImportDetails impd);
 
-	public void delete(long idImportDetail);
+	public void delete(Long idImportDetail);
 	
 	List<Category> findName(String productName);
 }

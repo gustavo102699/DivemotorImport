@@ -27,12 +27,12 @@ public class TransportServiceImpl implements ITransportService {
 	}
 
 	@Override
-	public void delete(long idTransport) {
+	public void delete(Long idTransport) {
 		tR.deleteById(idTransport);
 	}
 
 	@Override
-	public Optional<Transport> listId(long idTransport) {
+	public Optional<Transport> listId(Long idTransport) {
 		return tR.findById(idTransport);
 	}
 

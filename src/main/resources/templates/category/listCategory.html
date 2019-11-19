@@ -33,12 +33,14 @@
 					<tr>
 						<th scope="col" class="text-center">ID</th>
 						<th scope="col" class="text-center">Nombre</th>
+						<th scope="col" class="text-center">Operacion</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="cat : ${listCategories}">
 						<td class="text-center" th:text="${cat.idCategory}"></td>
 						<td class="text-center" th:text="${cat.categoryName}"></td>
+						<td class="text-center"><a th:href="@{/category/eliminar?id=}+${cat.idCategory}"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
 					</tr>
 				</tbody>
 			</table>

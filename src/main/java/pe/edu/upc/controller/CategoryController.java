@@ -103,7 +103,7 @@ public class CategoryController {
 		return "category/findCategory";
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/eliminar")
 	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
 		try {
 			if (id != null && id > 0) {

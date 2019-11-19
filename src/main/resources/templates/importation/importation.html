@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
@@ -26,6 +27,7 @@
 
 			<div class="col-6">
 				<h3>Registrar Importacion</h3>
+				<img class="imgform" alt=""  th:src="@{/img/form/IMPORTAA.png}">
 			</div>
 
 			<div class="col-6 frm-registro ">
@@ -47,17 +49,17 @@
 							th:errors="*{deliveryDate}"></small>
 					</div>
 
-				
-					<div class="form-group" >
-						<label for="" class=" col-form-label">Transporte: </label>
-						<select class="form-control" th:field="*{transport.idTransport}">
+
+					<div class="form-group">
+						<label for="" class=" col-form-label">Transporte: </label> <select
+							class="form-control" th:field="*{transport.idTransport}">
 							<option th:each="t: ${listaTransportes}"
 								th:value="${t.idTransport}" th:text="${t.transportName}"
 								th:selected="(${t.idTransport} == *{transport.idTransport})"></option>
 						</select>
 					</div>
-					
-						<div class="form-group" style="opacity: 1; display:none;">
+
+					<div class="form-group" style="opacity: 1; display: none;">
 						<label for="" class=" col-form-label">Fecha de registro: </label>
 						<input type="date" th:field="*{requestDate}" class="form-control"
 							th:errorclass="'form-control alert-danger'" /> <small
@@ -65,6 +67,9 @@
 							th:if="${#fields.hasErrors('requestDate')}"
 							th:errors="*{requestDate}"></small>
 
+						<div class="alert alert-danger"
+							th:if="${#fields.hasErrors('requestDate')}"
+							th:errors="*{requestDate}"></div>
 					</div>
 
 

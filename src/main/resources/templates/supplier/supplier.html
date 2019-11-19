@@ -22,17 +22,18 @@
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 
-		<div class="content container row">
+		<div class="content container row col-12">
 			<div class="col-6">
 				<h3>Registrar Proveedor</h3>
-				<img alt="" src="">
-				
+				<img class="imgform" alt="" style="width: 60%; margin: 40px 70px;"
+					th:src="@{/img/form/proveedor.png}">
+
 			</div>
 			<div class="col-6 frm-registro">
 				<form th:action="@{/supplier/save}" method="post"
 					th:object="${supplier}">
 					<div class="form-group">
-						<label for="idBrand">ID:</label> <input type="text"
+						<label for="idBrand">ID:</label> <input type="text" readonly
 							class="form-control" th:field="*{idSupplier}"></input>
 
 						<div class="form-group">

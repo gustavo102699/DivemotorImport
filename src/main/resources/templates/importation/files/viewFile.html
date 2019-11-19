@@ -26,13 +26,17 @@
 
 			<div class="d-flex">
 				<h3 class="title-content" th:text="${titulo}">Requerimientos</h3>
-				<a th:href="@{'/importation/files/'+ ${importation.idImportation}}" class="btnnew btn btn-danger">Regresar</a>
+				<a th:href="@{'/importation/files/'+ ${importation.idImportation}}"
+					class="btnnew btn btn-danger">Regresar</a>
 			</div>
 			<div class="creque">
-			<h4 style="margin-bottom: 20px;" th:text="'Fecha de Creacion: '+ ${file.createDate}"></h4>
-				<p id="reque" th:text="${file.bodyFile}"></p>
+				<h4 style="margin-bottom: 20px;"
+					th:text="'Fecha de Creacion: '+ ${file.createDate}"></h4>
+				<p id="reque" th:text="${file.bodyFile}">
+				</p>
+
 			</div>
-			
+
 		</div>
 	</div>
 

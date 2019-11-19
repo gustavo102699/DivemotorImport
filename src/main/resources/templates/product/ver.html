@@ -23,73 +23,31 @@
 	<div class="bg row">
 		<div th:replace="fragments/nav :: nav" class="row topbar col-lg-12"></div>
 
-		<div class="content-wrapper">
-		
-			<div class="container-fluid">
-				<div class="container py-4">
-					<div class="card bg-light">
-						<div class="card-header bg-warning"></div>
-						<div class="card-body">
-							<table class="table table-bordered table-hover table-striped"
-								id="tab_logic">
 
-								<tbody>
-									<tr>
-										<td>CODIGO</td>
-										<td th:text="${product.idProducto}"></td>
-									</tr>
-									<tr>
-										<td>NOMBRE DE PRODUCTO</td>
-										<td th:text="${product.productName}"></td>
-									</tr>
-									<tr>
-										<td>PRECIO</td>
-										<td th:text="${product.price}"></td>
-									</tr>
+		<div class="content container">
 
+			<div class="detail">
+				<img class="detailimg" th:if="${#strings.length(product.foto)> 0}"
+					th:src="@{'/products/uploads/' + ${product.foto}}"
+					th:alt="${product.foto}">
+				<div class="blend"></div>
 
-									<tr>
-										<td>UNIT</td>
-										<td th:text="${product.unit}"></td>
-									</tr>
+				<div class="detalles">
+					<a th:href="@{/products/list}" class="volverdet" href=""><i class="fa fa-arrow-left"></i></a>
+					<h2 th:text="${product.productName}" class="prodnombre"></h2>
 
-									<tr>
-										<td>CATEGORIA</td>
-										<td th:text="${product.category.categoryName}"></td>
-									</tr>
-
-									<tr>
-										<td>MARCA</td>
-										<td th:text="${product.brand.brandName}"></td>
-									</tr>
-
-									<tr>
-										<td>PROVEEDOR</td>
-										<td th:text="${product.supplier.supplierName}"></td>
-									</tr>
-									<tr>
-										<td>FOTO</td>
-										<td><img th:if="${#strings.length(product.foto)> 0}"
-											class="img-thumbnail rounded float-left"
-											style="max-width: 50%;"
-											th:src="@{'/products/uploads/' + ${product.foto}}"
-											th:alt="${product.foto}" /></td>
-									</tr>
-								</tbody>
-
-							</table>
-
-							<a style="border-bottom-color: green"
-								th:href="@{/products/list}" id="add-row" type="button"
-								class="btnadd btn btn-primary btn-md left-block"> <span
-								class="glyphicon glyphicon-circle-arrow-left"></span> Volver
-							</a>
-						</div>
-					</div>
+					<p th:text="${product.price}" class="prodprecio"></p>
+					<p th:text="${product.brand.brandName}" class="prodmarca"></p>
+					<p th:text="'Distribuido por '+${product.supplier.supplierName}"
+						class="prodproveedor"></p>
 				</div>
 			</div>
 		</div>
+
 	</div>
+
+
+
 
 
 	<script src="/js/popper.min.js"></script>

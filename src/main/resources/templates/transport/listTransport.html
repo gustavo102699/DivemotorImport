@@ -34,6 +34,8 @@
 						<th scope="col" class="text-center">ID</th>
 						<th scope="col" class="text-center">Nombre</th>
 						<th scope="col" class="text-center">Agencia de importacion</th>
+						<th scope="col" class="text-center">Operacaion</th>
+						<th scope="col" class="text-center">Operacaion</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,6 +43,8 @@
 						<td class="text-center" th:text="${t.idTransport}"></td>
 						<td class="text-center" th:text="${t.transportName}"></td>
 						<td class="text-center" th:text="${t.importAgency}"></td>
+						<td class="text-center"><a th:href="@{'/transport/update/' + ${t.idTransport}}"><i class="fa fa-edit" style="color: blue;"></i></a></td>
+						<td class="text-center"><a th:href="@{'/transport/eliminar/' + ${t.idTransport}}"><i class="iconf fa fa-trash" style="color: red;"></i></a></td>
 					</tr>
 				</tbody>
 			</table>
