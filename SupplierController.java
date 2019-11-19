@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.controller;
+package pe.edu.upc.controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pe.edu.upc.spring.entity.Supplier;
-import pe.edu.upc.spring.service.ISupplierService;
+import pe.edu.upc.entity.Supplier;
+import pe.edu.upc.service.ISupplierService;
 
 
 
@@ -53,7 +53,7 @@ public class SupplierController {
 				model.addAttribute("mensaje", "Ya existe");
 				return "supplier/supplier";
 			} else {
-				model.addAttribute("mensajeff", "Se guardó correctamente");
+				model.addAttribute("mensaje", "Se guardó correctamente");
 				status.setComplete();
 			}
 		}
@@ -111,7 +111,7 @@ public class SupplierController {
 		return "supplier/findSupplier";
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping("/eliminar")
 	public String delete(Map<String, Object> model, @RequestParam(value = "id") Integer id) {
 		try {
 			if (id != null && id > 0) {
@@ -121,11 +121,17 @@ public class SupplierController {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			model.put("mensaje", "No se puede eliminar una libreria");
+			model.put("mensaje", "No se puede eliminar");
 		}
 		model.put("listsuppliers", sService.list());
 
-		return "supplier/listSupplier";
+		return "redirect:/supplier/list";
+	}
+	
+	@RequestMapping("/reporte3")
+	public String supplierXimp(Map<String, Object> model) {
+		model.put("listSupplierxImp", sService.supplierXimp());
+		return "reports/supplierfrecuently";
 	}
 
 }
