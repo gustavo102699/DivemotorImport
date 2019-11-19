@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Log in</title>
+    <style>
+        body,
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            font-family: 'Roboto';
+        }
+        
+        .pag {
+            width: 100%;
+            height: 100vh;
+        }
+        
+        #pg1 {
+            background-image: url(divebg.png);
+            background-size: cover;
+            background-blend-mode: multiply;
+            background-color: rgba(0, 0, 0, 0.774);
+        }
+        
+        #tit {
+            text-align: center;
+            font-size: 25px;
+        }
+        
+        .info {
+            text-align: center;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        
+        #frmdesc {
+            top: 50%;
+            bottom: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            width: 32%;
+            max-height: 80vh;
+            min-height: 60vh;
+            position: absolute;
+            box-shadow: 0px 1px 10px rgba(39, 39, 39, 0.363);
+            display: flexbox;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.945);
+            border-radius: 5px;
+            padding: 4vh 0px;
+        }
+        
+        .cinp {
+            display: block;
+            border: none;
+            width: 80%;
+            margin: 20px 10%;
+            box-shadow: 0px 2px 4px rgba(63, 63, 63, 0.411);
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        
+        .inp {
+            border: none;
+            font-size: 15px;
+            color: black;
+            padding: 15px 5px;
+        }
+        
+        .txtclac:focus {
+            border-bottom: 1px solid rgb(0, 0, 0);
+        }
+        
+        .icono {
+            font-size: 20px;
+            margin: 1px 15px;
+        }
+        
+        #btncalc {
+            width: 80%;
+            margin: 20px 10%;
+            background: white;
+            border: 2px solid rgb(49, 49, 49);
+            height: 50px;
+            transition: 0.5s;
+        }
+        
+        #btncalc:hover {
+            background: rgb(49, 49, 49);
+            color: white;
+        }
+        
+        @media(max-width: 700px) {
+            #frmdesc {
+                width: 70%;
+            }
+            #titulo {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pag" id="pg1">
+
+
+
+        <form id="frmdesc" action="">
+            <h2 id="tit">DIVEMOTOR</h2>
+            <p class="info">Por favor inicia sesion para continuar</p>
+            <div class="cinp">
+                <i class="icono fa fa-users"></i>
+                <input class="inp" type="text" placeholder="Usuario">
+            </div>
+            <div class="cinp">
+                <i class="icono fa fa-lock"></i>
+                <input class="inp" type="password" placeholder="Contraseña">
+            </div>
+
+            <button id="btncalc">Ingresar</button>
+        </form>
+    </div>
+</body>
+
+</html>
